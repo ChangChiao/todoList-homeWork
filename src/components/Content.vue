@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Todo } from "../types/todo";
+const validType = ["image/jpg", "image/jpeg", "image/png"];
+
 interface ContentProps {
   activeTodo: Todo;
 }
@@ -16,6 +18,18 @@ const editContent = (e: Event) => {
   const target = <HTMLTextAreaElement>e.target;
   emit("editTodo", { key: "content", value: target.value });
 };
+
+const uploadCover = (e: Event) => {
+    const target = <HTMLInputElement>e.target;
+    const file = target.files![0];
+    
+    if(!validType.includes(file.type)){
+        alert("請上傳副檔名為png、jpg的圖片")
+        return;
+    }
+    const imgSrc = URL.createObjectURL(file);
+    emit("editTodo", { key: "cover", value: imgSrc });
+}
 
 </script>
 
@@ -52,7 +66,7 @@ const editContent = (e: Event) => {
           <img :src="activeTodo?.cover" alt="" />
         </div>
         <label class="btn w-full leading-[44px]" for="file">Upload Image</label>
-        <input class="hidden" id="file" type="file">
+        <input class="hidden" id="file" type="file" @change="uploadCover">
       </div>
     </div>
   </section>
