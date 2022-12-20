@@ -1,11 +1,29 @@
 <script setup lang="ts">
+import { reactive, ref, provide } from "vue";
+import ContentVue from './components/Content.vue';
+import NavVue from './components/Nav.vue';
+import { TodoList } from "./symbol";
+const todoList = reactive([
+  {
+    id:1232,
+    title: 'test',
+    content: 'lalalalalala',
+    startDate: "",
+    endDate: "",
+    cover: "",
+  }
+]);
+
+provide(TodoList, todoList);
+const activeIndex = ref(0);
 
 </script>
 
 <template>
-  <div>
-    <h1 class="text-cyan-500">123</h1>
-  </div>
+  <main class="flex">
+    <NavVue />
+    <ContentVue />
+  </main>
 </template>
 
 <style scoped>
