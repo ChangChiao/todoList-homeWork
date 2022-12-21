@@ -6,7 +6,7 @@ const isOpenMenu = inject(isOpenMenuType)
 </script>
 
 <template>
-  <div class="block md:hidden relative w-7 h-7">
+  <label for="menu-toggle" class="block md:hidden relative w-7 h-7 cursor-pointer">
     <input
       class="hidden peer"
       @change="handleMenu && handleMenu();"
@@ -14,8 +14,8 @@ const isOpenMenu = inject(isOpenMenuType)
       :checked="isOpenMenu"
       id="menu-toggle"
     />
-    <label id="burger" for="menu-toggle"></label>
-  </div>
+    <span id="burger" ></span>
+  </label>
 </template>
 
 <style scoped>
@@ -27,7 +27,6 @@ const isOpenMenu = inject(isOpenMenuType)
     w-[24px]
     h-[5px]
     duration-200
-    cursor-pointer
     z-10;
 }
 
