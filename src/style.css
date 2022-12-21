@@ -13,3 +13,17 @@
     @apply cursor-pointer block mx-auto rounded-lg mt-5 bg-primary-light text-center w-56 h-[44px] hover:filter duration-300;
   }
 }
+
+/* for plugin */
+
+.dp__input_wrap{
+  background: #EBEBEB !important;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.dp__input{
+  background: transparent !important;
+}

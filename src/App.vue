@@ -4,15 +4,15 @@ import ContentVue from "./components/Content.vue";
 import NavVue from "./components/Nav.vue";
 import { Todo, TodoKeys } from "./types/todo";
 const emptyObj = () => ({
-  id: new Date().toISOString(),
+  id: new Date().getTime(),
   title: "",
   content: "",
-  startDate: new Date().toISOString(),
-  endDate: new Date().toISOString(),
+  startDate: "",
+  endDate: "",
   cover: "",
 });
 
-const todoList = reactive<Todo[]>([]);
+const todoList = reactive<Todo[]>([emptyObj()]);
 
 const activeIndex = ref(0);
 
@@ -22,11 +22,23 @@ const activeTodo = computed(() => {
 
 const addTodo = () => {
   todoList.push(emptyObj());
-  activeIndex.value = todoList.length - 1 ;
+  activeIndex.value = todoList.length - 1;
 };
 
-const editTodo = ({ key, value }: { key: TodoKeys; value: string }) => {
-  todoList[activeIndex.value][key] = value;
+type EditParam = {
+  key: TodoKeys;
+  value: Todo[TodoKeys];
+};
+
+
+const editTodo = ({ key, value }: EditParam) => {
+  const target = todoList[activeIndex.value];
+  console.log('target', target);
+  console.log('key', key);
+  
+  console.log('value', value);
+  
+  (target[key] as any) = value;
 };
 
 const deleteTodo = () => {
@@ -36,8 +48,7 @@ const deleteTodo = () => {
 
 const selectTodo = (index: number) => {
   activeIndex.value = index;
-}
-
+};
 </script>
 
 <template>
