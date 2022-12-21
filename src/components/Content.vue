@@ -96,13 +96,13 @@ const afterDate = computed(() => {
             maxlength="200"
           ></textarea>
           <div class="float-right text-sm text-gray-500">
-            {{ activeTodo?.content?.length }} / 200
+            200 / {{ activeTodo?.content?.length }}
           </div>
         </div>
         <div class="flex items-center mt-4 justify-between">
           <Datepicker
             :format="'yyyy/MM/dd'"
-            placeholder="請選擇起始時間"
+            placeholder="請選擇起始日期"
             :max-date="beforeDate"
             :modelValue="activeTodo?.startDate"
             :enable-time-picker="false"
@@ -111,7 +111,7 @@ const afterDate = computed(() => {
           <span class="px-4">~</span>
           <Datepicker
             :format="'yyyy/MM/dd'"
-            placeholder="請選擇結束時間"
+            placeholder="請選擇結束日期"
             :min-date="afterDate"
             :modelValue="activeTodo?.endDate"
             :enable-time-picker="false"
