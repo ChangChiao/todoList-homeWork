@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { TodoList } from "../symbol";
 import { Todo } from "../types/todo";
+import Burger from "./Burger.vue";
 interface NavProps {
   todoList: Todo[];
   activeIndex: number;
@@ -21,8 +21,16 @@ const addTodo = () => {
 </script>
 
 <template>
-  <nav class="h-screen w-[250px] bg-primary-normal">
-    <h1 class="py-3 px-5 text-xl">Demo Todo List</h1>
+  <nav
+    :class="[
+      isOpenMenu && 'translate-x-0',
+      'h-screen w-[250px] fixed z-20 -translate-x-[250px] duration-300  md:translate-x-0 md:relative bg-primary-normal',
+    ]"
+  >
+    <h1 class="py-3 px-5 text-xl flex justify-between">
+        Demo Todo List
+        <Burger class="md:hidden" />
+    </h1>
     <ul>
       <li
         @click="() => emit('selectTodo', i)"

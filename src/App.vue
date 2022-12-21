@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { reactive, ref, computed, provide } from "vue";
 import ContentVue from "./components/Content.vue";
 import NavVue from "./components/Nav.vue";
+import { isOpenMenuType, handleMenuType} from "./symbol";
 import { Todo, TodoKeys } from "./types/todo";
 const emptyObj = () => ({
   id: new Date().getTime(),
@@ -46,10 +47,16 @@ const selectTodo = (index: number) => {
 };
 
 const isOpenMenu = ref(false);
+provide(isOpenMenuType, isOpenMenu);
+
+const handleMenu = () => {
+  isOpenMenu.value = !isOpenMenu.value;
+}
+provide(handleMenuType, handleMenu);
 </script>
 
 <template>
-  <main class="flex">
+  <main class="flex w-screen overflow-hidden">
     <NavVue
       :isOpenMenu="isOpenMenu"
       :todoList="todoList"

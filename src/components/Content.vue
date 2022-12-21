@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { Todo } from "../types/todo";
 import Datepicker from "@vuepic/vue-datepicker";
+import Burger from "./Burger.vue";
 const validType = ["image/jpg", "image/jpeg", "image/png"];
 
 interface ContentProps {
@@ -10,6 +11,8 @@ interface ContentProps {
 const props = defineProps<ContentProps>();
 const emit = defineEmits(["editTodo", "deleteTodo"]);
 
+
+// update todo
 const editTitle = (e: Event) => {
   const target = <HTMLInputElement>e.target;
   emit("editTodo", { key: "title", value: target.value });
@@ -36,32 +39,38 @@ const updateDate = (type: string, date: string) => {
   emit("editTodo", { key: type, value: date });
 };
 
-const beforeDate = computed(() => {
-    const date = props.activeTodo?.endDate
-    if(date === '') return undefined;
-    const newDate = new Date(date)
-    newDate.setDate(newDate.getDate() - 1)
-    return newDate
-})
+// for date
 
-const afterDate = computed (() => {
-    const date = props.activeTodo?.startDate
-    if(date === '') return undefined;
-    const newDate = new Date(date)
-    newDate.setDate(newDate.getDate() + 1)
-    return newDate
-})
+const beforeDate = computed(() => {
+  const date = props.activeTodo?.endDate;
+  if (date === "") return undefined;
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() - 1);
+  return newDate;
+});
+
+const afterDate = computed(() => {
+  const date = props.activeTodo?.startDate;
+  if (date === "") return undefined;
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + 1);
+  return newDate;
+});
+
 </script>
 
 <template>
-  <section class="px-5 w-[calc(100vw-250px)]">
-    <header class="flex justify-between md:justify-end text-2xl h-[66px] items-center">
-        <div class="block md:hidden relative w-7 h-7">
-            <input class="hidden peer" type="checkbox" id="menu-toggle" />
-            <label id="burger" for="menu-toggle"></label>
-        </div>
-        <font-awesome-icon
-        @click="() => emit('deleteTodo')"
+  <section class="px-5 w-full md:w-[calc(100vw-250px)]">
+    <header
+      class="flex justify-between md:justify-end text-2xl h-[66px] items-center"
+    >
+      <!-- <div class="block md:hidden relative w-7 h-7">
+        <input class="hidden peer" @change="emit('handleMenu')" type="checkbox" id="menu-toggle" />
+        <label id="burger" for="menu-toggle"></label>
+      </div> -->
+      <Burger />
+      <font-awesome-icon
+        @click="emit('deleteTodo')"
         class="cursor-pointer"
         icon="fa-regular fa-trash-can"
       />
@@ -86,7 +95,9 @@ const afterDate = computed (() => {
             :value="activeTodo?.content"
             maxlength="200"
           ></textarea>
-          <div class="float-right text-sm text-gray-500">{{activeTodo?.content?.length}} / 200</div>
+          <div class="float-right text-sm text-gray-500">
+            {{ activeTodo?.content?.length }} / 200
+          </div>
         </div>
         <div class="flex items-center mt-4 justify-between">
           <Datepicker
@@ -119,11 +130,11 @@ const afterDate = computed (() => {
   </section>
 </template>
 
-
-<style scoped>
-#burger, #burger:before, #burger:after {
-    @apply
-    absolute
+<!-- <style scoped>
+#burger,
+#burger:before,
+#burger:after {
+  @apply absolute
     bg-black
     w-[24px]
     h-[5px]
@@ -132,10 +143,8 @@ const afterDate = computed (() => {
     z-10;
 }
 
-
 #burger {
-    @apply
-    top-[0px]
+  @apply top-[0px]
     before:content-['']
     before:top-[10px]
     before:left-0
@@ -144,18 +153,13 @@ const afterDate = computed (() => {
     after:left-0
     duration-200
     peer-checked:bg-white
-    /* peer-checked:before:w-[20px] */
     peer-checked:before:top-[10px]
     peer-checked:before:left-[0px]
     peer-checked:before:rotate-45
-    /* peer-checked:before:-translate-x-[5px] */
     peer-checked:before:duration-200
-    /* peer-checked:after:w-[20px] */
     peer-checked:after:top-[10px]
     peer-checked:after:left-[0px]
     peer-checked:after:-rotate-45
-    /* peer-checked:after:-translate-x-[5px] */
-    peer-checked:after:duration-200
+    peer-checked:after:duration-200;
 }
-
-</style>
+</style> -->
