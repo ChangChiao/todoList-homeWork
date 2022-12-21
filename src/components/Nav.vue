@@ -23,8 +23,8 @@ const addTodo = () => {
 <template>
   <nav
     :class="[
-      isOpenMenu && 'translate-x-0',
-      'h-screen w-[250px] fixed z-20 -translate-x-[250px] duration-300  md:translate-x-0 md:relative bg-primary-normal',
+      isOpenMenu? 'translate-x-0' : '-translate-x-[250px]',
+      'h-screen w-[250px] fixed z-20 duration-300 md:translate-x-0 md:relative bg-primary-normal',
     ]"
   >
     <h1 class="py-3 px-5 text-xl flex justify-between">
