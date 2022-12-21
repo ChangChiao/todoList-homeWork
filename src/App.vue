@@ -32,12 +32,7 @@ type EditParam = {
 
 
 const editTodo = ({ key, value }: EditParam) => {
-  const target = todoList[activeIndex.value];
-  console.log('target', target);
-  console.log('key', key);
-  
-  console.log('value', value);
-  
+  const target = todoList[activeIndex.value];  
   (target[key] as any) = value;
 };
 
@@ -49,11 +44,14 @@ const deleteTodo = () => {
 const selectTodo = (index: number) => {
   activeIndex.value = index;
 };
+
+const isOpenMenu = ref(false);
 </script>
 
 <template>
   <main class="flex">
     <NavVue
+      :isOpenMenu="isOpenMenu"
       :todoList="todoList"
       :activeIndex="activeIndex"
       @select-todo="selectTodo"
@@ -64,6 +62,7 @@ const selectTodo = (index: number) => {
       @delete-todo="deleteTodo"
       @edit-todo="editTodo"
     />
+    <div v-if="isOpenMenu" class="fixed w-full h-full bg-black/70 left-0 top-0"></div>
   </main>
 </template>
 

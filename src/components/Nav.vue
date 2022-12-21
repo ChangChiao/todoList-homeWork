@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { TodoList } from "../symbol";
-import { Todo } from "../types/todo"
+import { Todo } from "../types/todo";
 interface NavProps {
   todoList: Todo[];
   activeIndex: number;
+  isOpenMenu: boolean;
 }
 const props = defineProps<NavProps>();
 const emit = defineEmits(["addTodo", "selectTodo"]);
 
-const isUpperLimit = computed(()=>{
-    return props.todoList.length >= 10
-})
+const isUpperLimit = computed(() => {
+  return props.todoList.length >= 10;
+});
 
 const addTodo = () => {
-    if(isUpperLimit.value) return;
-    emit("addTodo")
-}
+  if (isUpperLimit.value) return;
+  emit("addTodo");
+};
 </script>
 
 <template>
@@ -35,7 +36,13 @@ const addTodo = () => {
         {{ i + 1 }}. {{ item.title }}
       </li>
     </ul>
-    <button @click="addTodo" class="btn">Add Item</button>
+    <button
+      :disabled="isUpperLimit"
+      :class="['btn', isUpperLimit && 'bg-gray-300']"
+      @click="addTodo"
+    >
+      Add Item
+    </button>
   </nav>
 </template>
 

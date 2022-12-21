@@ -55,8 +55,12 @@ const afterDate = computed (() => {
 
 <template>
   <section class="px-5 w-[calc(100vw-250px)]">
-    <header class="flex justify-end text-xl h-[66px] items-center">
-      <font-awesome-icon
+    <header class="flex justify-between md:justify-end text-2xl h-[66px] items-center">
+        <div class="block md:hidden relative w-7 h-7">
+            <input class="hidden peer" type="checkbox" id="menu-toggle" />
+            <label id="burger" for="menu-toggle"></label>
+        </div>
+        <font-awesome-icon
         @click="() => emit('deleteTodo')"
         class="cursor-pointer"
         icon="fa-regular fa-trash-can"
@@ -70,8 +74,8 @@ const afterDate = computed (() => {
       maxlength="50"
       class="block w-full px-5"
     />
-    <div class="flex justify-between items-center mt-6">
-      <div class="w-[48%]">
+    <div class="md:flex justify-between items-center mt-4">
+      <div class="w-full md:w-[48%]">
         <div class="h-[150px] bg-secondary rounded-lg p-4">
           <textarea
             @input="editContent"
@@ -93,7 +97,7 @@ const afterDate = computed (() => {
             :enable-time-picker="false"
             @update:modelValue="(val:string) => updateDate('startDate', val)"
           />
-          ~
+          <span class="px-4">~</span>
           <Datepicker
             :format="'yyyy/MM/dd'"
             placeholder="請選擇結束時間"
@@ -104,9 +108,9 @@ const afterDate = computed (() => {
           />
         </div>
       </div>
-      <div class="w-[48%]">
+      <div class="w-ful mt-4 md:w-[48%] md:mt-0">
         <div class="bg-secondary h-[150px] rounded-lg overflow-hidden">
-          <img :src="activeTodo?.cover" alt="" />
+          <img class="" :src="activeTodo?.cover" alt="" />
         </div>
         <label class="btn w-full leading-[44px]" for="file">Upload Image</label>
         <input class="hidden" id="file" type="file" @change="uploadCover" />
@@ -114,3 +118,44 @@ const afterDate = computed (() => {
     </div>
   </section>
 </template>
+
+
+<style scoped>
+#burger, #burger:before, #burger:after {
+    @apply
+    absolute
+    bg-black
+    w-[24px]
+    h-[5px]
+    duration-200
+    cursor-pointer
+    z-10;
+}
+
+
+#burger {
+    @apply
+    top-[0px]
+    before:content-['']
+    before:top-[10px]
+    before:left-0
+    after:content-['']
+    after:top-[20px]
+    after:left-0
+    duration-200
+    peer-checked:bg-white
+    /* peer-checked:before:w-[20px] */
+    peer-checked:before:top-[10px]
+    peer-checked:before:left-[0px]
+    peer-checked:before:rotate-45
+    /* peer-checked:before:-translate-x-[5px] */
+    peer-checked:before:duration-200
+    /* peer-checked:after:w-[20px] */
+    peer-checked:after:top-[10px]
+    peer-checked:after:left-[0px]
+    peer-checked:after:-rotate-45
+    /* peer-checked:after:-translate-x-[5px] */
+    peer-checked:after:duration-200
+}
+
+</style>
