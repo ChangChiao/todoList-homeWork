@@ -43,7 +43,7 @@ const updateDate = (type: string, date: string) => {
 
 const beforeDate = computed(() => {
   const date = props.activeTodo?.endDate;
-  if (date === "") return undefined;
+  if (!date) return undefined;
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() - 1);
   return newDate;
@@ -51,7 +51,7 @@ const beforeDate = computed(() => {
 
 const afterDate = computed(() => {
   const date = props.activeTodo?.startDate;
-  if (date === "") return undefined;
+  if (!date) return undefined;
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() + 1);
   return newDate;
